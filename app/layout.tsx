@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
+import { Archivo_Black, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import Masthead from "@/components/Masthead";
 import Footer from "@/components/Footer";
 
-const display = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600"], variable: "--font-display", display: "swap" });
-const serif = Noto_Serif_KR({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-serif", display: "swap" });
-const sans = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans", display: "swap" });
+const display = Archivo_Black({ subsets: ["latin"], weight: "400", variable: "--font-display", display: "swap" });
+const sans = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "500", "600", "700", "900"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: "ARTREND — 미술 동향 매거진", template: "%s · ARTREND" },
@@ -16,7 +15,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" data-theme="light" className={`${display.variable} ${serif.variable} ${sans.variable}`}>
+    <html lang="ko" data-theme="light" className={`${display.variable} ${sans.variable}`}>
       <body>
         <Masthead />
         <main>

@@ -12,14 +12,16 @@ export function ExhibitionCards({ items }: { items: Exhibition[] }) {
         <a key={e.id} className="exCard" href={e.url} target="_blank" rel="noopener noreferrer">
           <div className="img">
             <Img src={e.image} alt={e.title} ph={initials(e.institution)} />
+            <span className={`imgTag ${e.status === "current" ? "now" : ""}`}>{STAT[e.status]}</span>
           </div>
-          <div className="meta">
-            {e.countryName} · {fmtRange(e.start, e.end)}
-            <span className={`stat ${e.status === "current" ? "now" : ""}`}>{STAT[e.status]}</span>
+          <div className="body">
+            <div className="meta">
+              {e.countryName} · {fmtRange(e.start, e.end)}
+            </div>
+            <h3>{e.title}</h3>
+            <div className="inst">{e.institution}</div>
+            {e.artists.length ? <div className="who">{e.artists.slice(0, 4).join(", ")}</div> : null}
           </div>
-          <h3>{e.title}</h3>
-          <div className="inst">{e.institution}</div>
-          {e.artists.length ? <div className="who">{e.artists.slice(0, 4).join(", ")}</div> : null}
         </a>
       ))}
     </div>
@@ -39,7 +41,9 @@ export default function ExhibitionList({ items }: { items: Exhibition[] }) {
             <a className="exT" href={e.url} target="_blank" rel="noopener noreferrer">
               {e.title}
             </a>
-            <span className={`stat ${e.status === "current" ? "now" : ""}`}>{STAT[e.status]}</span>
+            <span className={`stat ${e.status === "current" ? "now" : ""}`} style={e.status === "current" ? { background: "var(--accent)", color: "#fff" } : undefined}>
+              {STAT[e.status]}
+            </span>
             <div className="exM">
               {e.institution} · {e.countryName} · {fmtRange(e.start, e.end)}
             </div>

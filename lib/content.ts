@@ -154,6 +154,11 @@ export const TYPE_LABEL: Record<string, string> = {
 };
 export const SCOPE_LABEL: Record<Scope, string> = { kr: "국내", jp: "일본", world: "해외" };
 
+/** 신호 종류별 알약 태그 색상 클래스 (globals.css 의 .pill-{type}) */
+export function pillClass(type: string): string {
+  return `imgTag pill-${type}`;
+}
+
 export function artistBySlug(slug: string): Artist | undefined {
   return artists.find((a) => a.slug === slug);
 }

@@ -15,20 +15,25 @@ const NAV = [
   { href: "/about", label: "소개" },
 ];
 
-export default function Masthead({ issue }: { issue?: string }) {
+export default function Masthead() {
   const path = usePathname() || "/";
   const today = new Date().toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", weekday: "short", timeZone: "Asia/Seoul" });
   return (
     <header className="mast">
       <div className="wrap">
         <div className="mastTop">
-          <Link href="/" className="logo">
-            ARTREND<small>미술 동향 매거진</small>
+          <Link href="/" className="logoWrap" aria-label="ARTREND 홈">
+            <span className="echo e2" aria-hidden="true">ARTREND</span>
+            <span className="echo" aria-hidden="true">ARTREND</span>
+            <span className="logo">
+              ARTREND
+              <span className="logoSub">미술 동향 매거진</span>
+            </span>
           </Link>
           <span className="mastDate">
             {today}
             <br />
-            {issue ? `No. ${issue}` : "매일 아침 갱신"}
+            매일 아침 갱신
           </span>
         </div>
         <nav className="nav" aria-label="주 메뉴">
