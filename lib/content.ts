@@ -62,8 +62,8 @@ export type NewsItem = {
   image?: string;
 };
 /** 뉴스 · 전시 지역 탭. 홈의 트렌딩 키워드 패널만 예전처럼 kr/jp/world(언어 기준) 3분류를 그대로 쓴다. */
-export type Region = "국내" | "아시아" | "유럽" | "미주" | "국제";
-export const REGION_ORDER: Region[] = ["국내", "아시아", "유럽", "미주", "국제"];
+export type Region = "국내" | "일본" | "유럽" | "미주" | "기타";
+export const REGION_ORDER: Region[] = ["국내", "일본", "유럽", "미주", "기타"];
 export type Scope = "kr" | "jp" | "world";
 export type TrendTerm = { term: string; count: number; base: number; ratio: number; example: { t?: string; u?: string; m?: string } };
 export type Trends = {

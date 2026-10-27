@@ -2,12 +2,12 @@
 
 import { useMemo, useState } from "react";
 import type { NewsItem, Region } from "@/lib/content";
-import { displayTitle, presentRegions } from "@/lib/content";
+import { displayTitle } from "@/lib/content";
+import { useRegion } from "@/lib/RegionContext";
 import NewsList from "./NewsList";
 
 export default function NewsBrowser({ data }: { data: Partial<Record<Region, NewsItem[]>> }) {
-  const regions = useMemo(() => presentRegions(data), [data]);
-  const [region, setRegion] = useState<Region>(regions[0]);
+  const { region } = useRegion();
   const [source, setSource] = useState("");
   const [q, setQ] = useState("");
   const items = data[region] ?? [];
@@ -23,26 +23,12 @@ export default function NewsBrowser({ data }: { data: Partial<Record<Region, New
 
   return (
     <>
-      <div className="pageHeadRow">
-        <div className="pageHeadText">
-          <h1>뉴스</h1>
-          <p>국내 · 아시아 · 유럽 · 미주의 미술 매체와 검색 결과에서 모은 최근 기사입니다. 한국어가 아닌 기사는 한국어로 옮겨 싣고, 원문 링크를 함께 답니다.</p>
-        </div>
-        <div className="regionTabs" role="group" aria-label="지역">
-          {regions.map((r) => (
-            <button
-              key={r}
-              className="pill"
-              aria-pressed={region === r}
-              onClick={() => {
-                setRegion(r);
-                setSource("");
-              }}
-            >
-              {r}
-            </button>
-          ))}
-        </div>
+      <div className="pageHead">
+        <h1>뉴스 — {region}</h1>
+        <p>
+          국내 · 일본 · 유럽 · 미주의 미술 매체와 검색 결과에서 모은 최근 기사입니다. 한국어가 아닌 기사는 한국어로 옮겨 싣고, 원문 링크를 함께 답니다.
+          지역은 오른쪽 위 토글로 바꿀 수 있습니다.
+        </p>
       </div>
       <div className="filters">
         <input className="search" type="search" placeholder="제목 · 요약 검색" value={q} onChange={(e) => setQ(e.target.value)} aria-label="뉴스 검색" />

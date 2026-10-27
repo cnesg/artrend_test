@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { Exhibition, Region } from "@/lib/content";
-import { presentRegions } from "@/lib/content";
+import { useRegion } from "@/lib/RegionContext";
 import ExhibitionList, { ExhibitionCards } from "./ExhibitionList";
 
 const STATUS: { k: string; label: string }[] = [
@@ -13,6 +13,11 @@ const STATUS: { k: string; label: string }[] = [
 ];
 
 export default function ExhibitionBrowser({ items }: { items: Exhibition[] }) {
+  const { region } = useRegion();
+  const [sub, setSub] = useState("");
+  const [status, setStatus] = useState("current");
+  const [q, setQ] = useState("");
+
   const byRegion = useMemo(() => {
     const m = {} as Record<Region, Exhibition[]>;
     items.forEach((e) => {
@@ -20,12 +25,6 @@ export default function ExhibitionBrowser({ items }: { items: Exhibition[] }) {
     });
     return m;
   }, [items]);
-  const regions = useMemo(() => presentRegions(byRegion), [byRegion]);
-  const [region, setRegion] = useState<Region>(regions[0]);
-  const [sub, setSub] = useState("");
-  const [status, setStatus] = useState("current");
-  const [q, setQ] = useState("");
-
   const inRegion = byRegion[region] ?? [];
   const subs = useMemo(() => {
     const m = new Map<string, number>();
@@ -48,26 +47,12 @@ export default function ExhibitionBrowser({ items }: { items: Exhibition[] }) {
 
   return (
     <>
-      <div className="pageHeadRow">
-        <div className="pageHeadText">
-          <h1>전시</h1>
-          <p>한국 · 일본 · 유럽 · 미주 · 아시아 주요 미술관의 진행 · 예정 · 최근 종료 전시입니다. 기관 공식 사이트의 전시 목록을 매일 읽어 옵니다.</p>
-        </div>
-        <div className="regionTabs" role="group" aria-label="지역">
-          {regions.map((r) => (
-            <button
-              key={r}
-              className="pill"
-              aria-pressed={region === r}
-              onClick={() => {
-                setRegion(r);
-                setSub("");
-              }}
-            >
-              {r}
-            </button>
-          ))}
-        </div>
+      <div className="pageHead">
+        <h1>전시 — {region}</h1>
+        <p>
+          한국 · 일본 · 유럽 · 미주 주요 미술관의 진행 · 예정 · 최근 종료 전시입니다. 기관 공식 사이트의 전시 목록을 매일 읽어 옵니다. 지역은 오른쪽 위
+          토글로 바꿀 수 있습니다.
+        </p>
       </div>
 
       {subs.length > 1 && (

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { REGION_ORDER } from "@/lib/content";
+import { useRegion } from "@/lib/RegionContext";
 
 const NAV = [
   { href: "/", label: "오늘" },
@@ -17,7 +19,8 @@ const NAV = [
 
 export default function Masthead() {
   const path = usePathname() || "/";
-  const today = new Date().toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", weekday: "short", timeZone: "Asia/Seoul" });
+  const { region, setRegion } = useRegion();
+
   return (
     <header className="mast">
       <div className="wrap">
@@ -30,11 +33,13 @@ export default function Masthead() {
               <span className="logoSub">미술 동향 매거진</span>
             </span>
           </Link>
-          <span className="mastDate">
-            {today}
-            <br />
-            매일 아침 갱신
-          </span>
+          <div className="regionSwitch" role="radiogroup" aria-label="지역 선택 (전시 · 뉴스에 적용)">
+            {REGION_ORDER.map((r) => (
+              <button key={r} role="radio" aria-checked={region === r} className={region === r ? "on" : ""} onClick={() => setRegion(r)}>
+                {r}
+              </button>
+            ))}
+          </div>
         </div>
         <nav className="nav" aria-label="주 메뉴">
           {NAV.map((n) => {

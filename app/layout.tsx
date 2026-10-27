@@ -3,6 +3,7 @@ import { Archivo_Black, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import Masthead from "@/components/Masthead";
 import Footer from "@/components/Footer";
+import { RegionProvider } from "@/lib/RegionContext";
 
 const display = Archivo_Black({ subsets: ["latin"], weight: "400", variable: "--font-display", display: "swap" });
 const sans = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "500", "600", "700", "900"], variable: "--font-sans", display: "swap" });
@@ -17,11 +18,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" data-theme="light" className={`${display.variable} ${sans.variable}`}>
       <body>
-        <Masthead />
-        <main>
-          <div className="wrap">{children}</div>
-        </main>
-        <Footer />
+        <RegionProvider>
+          <Masthead />
+          <main>
+            <div className="wrap">{children}</div>
+          </main>
+          <Footer />
+        </RegionProvider>
       </body>
     </html>
   );
