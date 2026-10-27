@@ -50,7 +50,20 @@ export type Editorial = {
   at?: string;
   facts?: Record<string, string>;
 };
-export type NewsItem = { date: string; source: string; title: string; titleKo: string; summary: string; url: string; country: string; image?: string };
+export type NewsItem = {
+  date: string;
+  source: string;
+  title: string;
+  titleKo: string;
+  summary: string;
+  url: string;
+  country: string;
+  countryName: string;
+  image?: string;
+};
+/** 뉴스 · 전시 지역 탭. 홈의 트렌딩 키워드 패널만 예전처럼 kr/jp/world(언어 기준) 3분류를 그대로 쓴다. */
+export type Region = "국내" | "아시아" | "유럽" | "미주" | "국제";
+export const REGION_ORDER: Region[] = ["국내", "아시아", "유럽", "미주", "국제"];
 export type Scope = "kr" | "jp" | "world";
 export type TrendTerm = { term: string; count: number; base: number; ratio: number; example: { t?: string; u?: string; m?: string } };
 export type Trends = {
@@ -61,6 +74,8 @@ export type Exhibition = {
   id: string;
   country: string;
   countryName: string;
+  region: Region;
+  subregion: string;
   institution: string;
   title: string;
   titleEn: string;
@@ -136,7 +151,7 @@ export const digest = digestFile as unknown as Digest[];
 export const stories = storiesFile as unknown as Story[];
 export const movers = moversFile as unknown as Mover[];
 export const editorial = editorialFile as unknown as Editorial;
-export const news = newsFile as unknown as Record<Scope, NewsItem[]>;
+export const news = newsFile as unknown as Partial<Record<Region, NewsItem[]>>;
 export const trends = trendsFile as unknown as Trends;
 export const exhibitions = exhibitionsFile as unknown as Exhibition[];
 export const awards = awardsFile as unknown as Award[];
@@ -186,4 +201,9 @@ export function shortProgram(p: string): string {
 }
 export function plateNo(i: number): string {
   return `pl. ${String(i + 1).padStart(2, "0")}`;
+}
+
+/** 데이터에 실제로 있는 지역만, 정해진 순서(국내·아시아·유럽·미주·국제)로 */
+export function presentRegions(bucket: Partial<Record<Region, unknown[]>>): Region[] {
+  return REGION_ORDER.filter((r) => (bucket[r]?.length ?? 0) > 0);
 }

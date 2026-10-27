@@ -11,6 +11,7 @@ import {
   meta,
   movers,
   news,
+  presentRegions,
   shortProgram,
   stories,
   trends,
@@ -205,10 +206,10 @@ export default function Home() {
           </Link>
         </div>
         <div className="newsCols">
-          {(["kr", "jp", "world"] as Scope[]).map((sc) => (
-            <div key={sc}>
-              <h3>{SCOPE_LABEL[sc]}</h3>
-              <NewsList items={news[sc].slice(0, 6)} showSummary={false} />
+          {presentRegions(news).map((r) => (
+            <div key={r}>
+              <h3>{r}</h3>
+              <NewsList items={news[r]!.slice(0, 6)} showSummary={false} />
             </div>
           ))}
         </div>

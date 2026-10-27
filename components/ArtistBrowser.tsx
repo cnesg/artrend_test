@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { Artist } from "@/lib/content";
-import { initials, TYPE_LABEL } from "@/lib/content";
+import { TYPE_LABEL } from "@/lib/content";
 import Img from "./Img";
 
 const TYPES = Object.keys(TYPE_LABEL);
@@ -53,14 +53,14 @@ export default function ArtistBrowser({ items }: { items: Artist[] }) {
         {shown.slice(0, 120).map((a) => (
           <Link key={a.slug} href={`/artist/${a.slug}`} className="focusCard">
             <div className="img">
-              <Img src={a.image} alt={a.name} ph={initials(a.name)} />
+              <Img src={a.image} alt={a.name} ph={a.name} />
+              {a.rookie ? <span className="imgTag solid">루키</span> : null}
             </div>
-            <div>
+            <div className="body">
               <h3>{a.name}</h3>
               {a.profile?.lede ? <p className="lede">{a.profile.lede}</p> : null}
               <p className="why">{a.reason}</p>
               <div className="kinds">
-                {a.rookie ? <span className="tag rookie">루키</span> : null}
                 {a.types.map((t) => (
                   <span key={t} className="tag">
                     {TYPE_LABEL[t] ?? t}

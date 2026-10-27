@@ -76,9 +76,19 @@ main { padding-bottom: 72px; }
 .pageHead { padding: 36px 0 8px; }
 .pageHead h1 { font-size: 38px; }
 .pageHead p { color: var(--ink-2); margin-top: 14px; max-width: 64ch; font-size: 15px; font-family: var(--sans); }
+
+/* 페이지 상단: 제목 왼쪽 + 지역 탭 오른쪽 위 */
+.pageHeadRow { display: flex; flex-direction: column-reverse; gap: 16px; padding: 30px 0 10px; }
+.pageHeadText h1 { font-size: 34px; }
+.pageHeadText p { color: var(--ink-2); margin-top: 12px; max-width: 64ch; font-size: 15px; font-family: var(--sans); }
+.regionTabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.regionTabs .pill { padding: 7px 16px; }
 .tag { display: inline-flex; align-items: center; font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 999px; background: var(--paper-2); color: var(--ink-2); white-space: nowrap; }
 .tag.rookie { background: var(--accent); color: var(--accent-ink); }
 .empty { color: var(--ink-3); padding: 18px 0; font-size: 14px; }
+
+/* 이미지를 못 불러왔을 때: 글자 없이 빈 회색 박스만 (부모 컨테이너를 꽉 채움) */
+.ph { width: 100%; height: 100%; background: var(--paper-2); }
 
 /* 종류별 알약 태그 색 — JS 쪽에서 className="pill-{type}" 로 붙인다 */
 .pill-award { background: var(--t-award); color: #fff; }
@@ -99,14 +109,14 @@ main { padding-bottom: 72px; }
 .heroCard .imgBox img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .heroCard:hover .imgBox img { transform: scale(1.025); }
 .heroCard .imgBox .ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--display); color: var(--ink-3); font-size: 15px; text-align: center; padding: 14px; }
-.heroCard .body { padding: 18px; }
+.heroCard .body { padding: 22px 24px 24px; }
 .heroCard h2 { font-size: 22px; color: var(--ink); margin-top: 10px; }
 .heroCard .excerpt { font-family: var(--sans); font-size: 14px; color: var(--ink-2); margin-top: 8px; line-height: 1.6; }
 .heroCard .byline { font-size: 11px; font-weight: 700; color: var(--ink-3); margin-top: 12px; letter-spacing: 0.02em; }
 .heroMain { grid-column: 1 / -1; }
 .heroMain .imgBox { aspect-ratio: 16 / 9; }
 .heroMain h2 { font-size: 30px; }
-.heroMain .body { padding: 22px; }
+.heroMain .body { padding: 28px 30px 30px; }
 .heroRow { display: grid; gap: 14px; grid-template-columns: 1fr; }
 
 /* ── 도록/타일 ───────────────── */
@@ -119,7 +129,7 @@ main { padding-bottom: 72px; }
 .plate .img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .plate:hover .img img { transform: scale(1.04); }
 .plate .img .ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 15px; color: var(--ink-3); text-align: center; padding: 10px; line-height: 1.3; }
-.plate .cap { padding: 10px 12px 12px; }
+.plate .cap { padding: 13px 15px 15px; }
 .plate .nm { font-family: var(--display); font-weight: 900; font-size: 15px; display: block; color: var(--ink); }
 .plate .sub { color: var(--ink-3); font-size: 11px; font-weight: 600; display: block; margin-top: 3px; }
 
@@ -131,7 +141,7 @@ main { padding-bottom: 72px; }
 .focusCard .img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .focusCard:hover .img img { transform: scale(1.04); }
 .focusCard .img .ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 22px; color: var(--ink-3); }
-.focusCard .body { padding: 14px 16px 16px; }
+.focusCard .body { padding: 18px 20px 20px; }
 .focusCard h3 { font-size: 18px; margin-top: 2px; }
 .focusCard .why { font-family: var(--sans); font-size: 13px; color: var(--ink-2); margin-top: 8px; line-height: 1.55; }
 .focusCard .lede { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--accent); margin-top: 6px; }
@@ -144,7 +154,7 @@ main { padding-bottom: 72px; }
 .exCard .img { position: relative; aspect-ratio: 4 / 3; background: var(--paper-2); overflow: hidden; }
 .exCard .img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .exCard:hover .img img { transform: scale(1.04); }
-.exCard .body { padding: 13px 15px 15px; }
+.exCard .body { padding: 16px 18px 18px; }
 .exCard .meta { font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink-3); }
 .exCard h3 { font-size: 16px; margin-top: 6px; }
 .exCard .inst { font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--ink-2); margin-top: 4px; }
@@ -249,6 +259,9 @@ details summary { cursor: pointer; font-family: var(--sans); }
   .kwGrid, .newsCols { grid-template-columns: repeat(3, 1fr); }
   .aHero { grid-template-columns: 0.75fr 1.25fr; gap: 44px; }
   .pageHead h1 { font-size: 50px; }
+  .pageHeadRow { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+  .pageHeadText h1 { font-size: 44px; }
+  .regionTabs { justify-content: flex-end; padding-bottom: 4px; }
   .logo, .logoWrap .echo { font-size: 38px; }
 }
 @media (min-width: 1040px) {
